@@ -66,6 +66,7 @@ const images = [
 ];
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
+
 const gallery = document.querySelector(".gallery");
 
 const markup = images
@@ -79,20 +80,13 @@ const markup = images
       alt="${description}"
     />
   </a>
-</li>`
-  }).join("");
+</li>`;
+  })
+  .join("");
 
 gallery.innerHTML = markup;
 
-
 const lightbox = new SimpleLightbox('.gallery a', {
-  captions: true,
-  captionType: 'attr',
-  captionsData: 'alt',
-  captionPosition: 'bottom',
-  fadeSpeed: 150,
-  captionSelector: "img",
+  captionsData: "alt",
   captionDelay: 250,
 });
-
-lightbox.on('show.simplelightbox');

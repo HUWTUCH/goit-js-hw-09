@@ -1,29 +1,33 @@
 const form = document.querySelector('.feedback-form');
 const localStorageKey = 'feedback-form-state';
 
-const storedForm = JSON.parse(localStorage.getItem(localStorageKey));
 
-if (storedForm) {
-  form.elements.email.value = storedForm.email || "";
-  form.elements.message.value = storedForm.message || "";
-};
+const savedState = JSON.parse(localStorage.getItem(localStorageKey));
 
-form.addEventListener("input", () => {
-  const formState = {
+if (savedState) {
+  form.elements.email.value = savedState.email || '';
+  form.elements.message.value = savedState.message || '';
+}
+
+form.addEventListener('input', event => {
+  const formData = {
     email: form.elements.email.value.trim(),
     message: form.elements.message.value.trim(),
   };
-  localStorage.setItem(localStorageKey, JSON.stringify(formState));
+
+  localStorage.setItem(localStorageKey, JSON.stringify(formData));
 });
 
+form.addEventListener('submit', event => {
+  event.preventDefault();
 
-form.addEventListener("submit", (eve) => {
-  eve.preventDefault();
-  if (form.elements.email.value === '' || form.elements.message.value === ''){
-    console.log('Please fill in both email and message fields');
-    return;
-  }
-  console.log("Data submitted:", JSON.parse(localStorage.getItem(localStorageKey)));
-  form.reset();
+  const formData = {
+    email: form.elements.email.value,
+    message: form.elements.message.value,
+  };
+
+  console.log(formData);
+
   localStorage.removeItem(localStorageKey);
+  form.reset();
 });
