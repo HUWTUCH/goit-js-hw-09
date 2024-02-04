@@ -21,6 +21,14 @@ form.addEventListener('input', event => {
 form.addEventListener('submit', event => {
   event.preventDefault();
 
+  const emailValue = form.elements.email.value.trim();
+  const messageValue = form.elements.message.value.trim();
+
+  if (!emailValue || !messageValue){
+    alert('Please fill in both email and message fields');
+    return;
+  }
+
   const formData = {
     email: form.elements.email.value,
     message: form.elements.message.value,
